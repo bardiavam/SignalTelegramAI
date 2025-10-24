@@ -1,0 +1,89 @@
+trading:
+    symbol: "PAXGUSDT"
+    default_interval: "1h"
+    intervals: ["15m", "30m", "1h", "4h"]
+    lookback_days: 30
+    prediction_horizon: 2
+    target_return_threshold: 0.0008
+    model_path_template: "models/model_{interval}.pkl"
+
+feature_engineering:
+    rsi_period: 14
+    momentum_windows: [3, 6, 12]
+    atr_window: 14
+    macd_fast: 12
+    macd_slow: 26
+    macd_signal: 9
+    bollinger_window: 20
+    bollinger_std: 2.0
+    rolling_vol_windows: [12, 24, 48]
+    lag_returns: [1, 2, 3, 6, 12]
+    ema_spans: [5, 15, 30, 60]
+
+training:
+    model_type: "lightgbm"
+    min_training_samples: 110
+    walk_forward_splits: 5
+    walk_forward_train_candles: 500
+    walk_forward_val_candles: 4
+    metric: "f1"
+    threshold_min: 0.35
+    threshold_max: 0.75
+    threshold_step: 0.01
+    test_size: 0.2
+
+model_params:
+    random_forest:
+        n_estimators: 600
+        max_depth: 20
+        min_samples_split: 40
+        min_samples_leaf: 8
+        max_features: "sqrt"
+        class_weight: "balanced_subsample"
+        random_state: 42
+    lightgbm:
+        objective: "binary"
+        boosting_type: "gbdt"
+        num_leaves: 64
+        max_depth: -1
+        learning_rate: 0.03
+        n_estimators: 1200
+        subsample: 0.8
+        colsample_bytree: 0.7
+        reg_alpha: 0.1
+        reg_lambda: 0.5
+        random_state: 42
+    logistic_regression:
+        penalty: "l2"
+        C: 0.5
+        solver: "lbfgs"
+        max_iter: 200
+        class_weight: "balanced"
+
+backtest:
+    start: "2020-01-01"
+    end: "2024-12-31"
+    initial_capital: 10000
+    transaction_cost: 0.0007
+    stop_loss_pct: 0.01
+    take_profit_pct: 0.015
+    max_hold_bars: 0
+    cooldown_bars: 3
+    probability_exit_buffer: 0.05
+
+monitor:
+    poll_interval_seconds: 120
+    history_window: 350
+    signal_threshold: 0.6
+
+logging:
+    level: "INFO"
+    file: "logs/app.log"
+
+bot:
+    state_path: "state/trade_state.json"
+
+telegram:
+    bot_token: "TELEGRAM_BOT_TOKEN"
+    chat_id: TELEGRAM_CHAT_ID
+    channel_id: TELEGRAM_CHANNEL_ID
