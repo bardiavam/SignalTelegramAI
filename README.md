@@ -1,84 +1,107 @@
-# 🚀 Crypto Trading Bot - Make Money While You Sleep! 💸
+# Crypto Trading Bot
 
-Yo! This is a sick crypto trading bot that uses AI to predict when to buy and sell crypto. It's basically like having a mini Warren Buffett working for you 24/7, but way cooler and it sends signals to your Telegram.
+A sophisticated cryptocurrency trading bot leveraging artificial intelligence to predict optimal buy and sell opportunities. This system integrates machine learning, market analysis, and automation to deliver actionable trading signals directly to your Telegram account.
 
-## 🎯 What This Bad Boy Can Do
+---
 
-- **Multi-Timeframe Analysis**: Checks 15m, 30m, 1h, and 4h charts (like a pro trader)
-- **AI Magic**: Uses machine learning models that are smarter than your average finance bro
-- **Risk Management**: Won't let you blow up your account (hopefully)
-- **Telegram Integration**: Get signals on your phone like a boss
-- **Backtesting**: See if your strategy would've made you rich in the past
-- **Live Monitoring**: Scans the markets while you're gaming or sleeping
+## Overview
 
-## 📋 What You Need
+### Core Features
 
-- Python 3.10+ (if you don't have this, google it lol)
-- Binance API keys (get them from binance.com)
-- Telegram Bot Token (talk to @BotFather on Telegram)
-- Basic brain cells (optional but recommended)
+* **Multi-Timeframe Analysis**: Evaluates 15m, 30m, 1h, and 4h charts for comprehensive market insight.
+* **AI-Powered Predictions**: Employs advanced machine learning models to identify high-probability trading setups.
+* **Risk Management**: Implements position sizing, stop-loss, and take-profit mechanisms to manage exposure effectively.
+* **Telegram Integration**: Sends real-time trading signals to your Telegram account.
+* **Backtesting**: Simulates past trading performance to evaluate strategy viability.
+* **Live Monitoring**: Continuously scans markets for opportunities while you are away.
 
-## 🛠️ How to Set This Shit Up
+---
 
-1. **Clone this repo and setup**
-```bash
-git clone <repository-url>
-cd signal_bot
-python -m venv venv
-source venv/bin/activate  # Windows users: venv\Scripts\activate
-pip install -r requirements.txt
-```
+## Requirements
 
-2. **Configure the bot**
-```bash
-# Copy the example config and edit it with your stuff
-nano config.yaml
-```
+To use the bot, ensure the following are installed or available:
 
-## ⚙️ Configuration Stuff
+* Python 3.10 or later
+* Telegram Bot Token (generated via [@BotFather](https://t.me/BotFather))
+* Basic understanding of trading principles
 
-Edit `config.yaml` to setup:
-- **Trading Settings**: Which crypto, timeframes, etc.
-- **Model Stuff**: AI parameters (if you're a nerd)
-- **Risk Management**: Stop-loss, take-profit (so you don't lose everything)
-- **Telegram**: Your bot token and chat ID
-- **Logging**: Where to save the logs
+---
 
-> 🔥 **IMPORTANT**: Don't commit your `config.yaml` with real API keys unless you want people to steal your money (not a good look).
+## Installation
 
-## 🎯 Let's Make Some Money!
+1. **Clone and Set Up the Environment:**
 
-1. **Train the AI models**
+   ```bash
+   git clone <repository-url>
+   cd signal_bot
+   python -m venv venv
+   source venv/bin/activate  # For Windows: venv\Scripts\activate
+   pip install -r requirements.txt
+   ```
+
+2. **Configure the Bot:**
+
+   ```bash
+   cp config.example.yaml config.yaml
+   nano config.yaml
+   ```
+
+---
+
+## Configuration
+
+Edit `config.yaml` to define:
+
+* **Trading Parameters**: Cryptocurrency pairs, timeframes, etc.
+* **Model Parameters**: AI configuration and performance settings.
+* **Risk Controls**: Stop-loss and take-profit rules.
+* **Telegram Settings**: Token and chat ID.
+* **Logging Options**: Output and log file preferences.
+
+> **Important:** Never commit `config.yaml` containing real API keys or sensitive credentials.
+
+---
+
+## Usage
+
+### Training the Models
+
 ```bash
 python cli.py train --config config.yaml --interval 1h
 ```
 
-2. **Test if this thing actually works**
+### Backtesting
+
 ```bash
 python cli.py backtest --config config.yaml --interval 1h --export backtest_results.csv
 ```
 
-3. **Start monitoring the markets**
+### Market Monitoring
+
 ```bash
-python cli.py monitor --once --config config.yaml  # Quick check
-python cli.py monitor --config config.yaml         # Keep it running
+python cli.py monitor --config config.yaml
 ```
 
-4. **Launch the trading bot**
+### Launching the Trading Bot
+
 ```bash
 python bot.py --config config.yaml
 ```
 
-## 📊 Cool Commands You Can Use
+---
 
-### Train All Timeframes
+## Useful Commands
+
+### Train Multiple Timeframes
+
 ```bash
 for interval in 15m 30m 1h 4h; do
     python cli.py train --config config.yaml --interval $interval
 done
 ```
 
-### Backtest Like a Pro
+### Advanced Backtesting
+
 ```bash
 python cli.py backtest \
     --config config.yaml \
@@ -88,82 +111,90 @@ python cli.py backtest \
     --export my_trades.csv
 ```
 
-### Get High-Quality Signals Only
+### Signal Filtering
+
 ```bash
 python cli.py monitor --config config.yaml --threshold 0.7
 ```
 
-## 🧪 Testing (for the nerds)
+---
+
+## Testing
+
+To run all tests:
 
 ```bash
 python -m pytest tests/
 ```
 
-Run specific tests:
+To run a specific test:
+
 ```bash
 python -m pytest tests/test_signals.py::test_compute_stop_take_prices
 ```
 
-## 📁 What's in This Folder?
+---
+
+## Project Structure
 
 ```
 signal_bot/
-├── bot.py              # The main bot that does the trading
-├── cli.py              # Command line stuff
-├── monitor.py          # Watches the markets
-├── signal_cli.py       # Signal processing
-├── signals.py          # Math stuff for signals
-├── train.py            # Trains the AI models
-├── backtest.py         # Tests strategies
-├── utils.py            # Helper functions
-├── config.yaml         # YOUR CONFIG (don't share this!)
-├── requirements.txt    # Python packages
-├── models/             # AI brain files (.pkl)
-├── state/              # Bot memory
+├── bot.py              # Main trading logic
+├── cli.py              # Command line interface
+├── monitor.py          # Market monitoring functions
+├── signal_cli.py       # Signal handling
+├── signals.py          # Technical calculations
+├── train.py            # AI model training
+├── backtest.py         # Backtesting engine
+├── utils.py            # Utility functions
+├── config.yaml         # User configuration file
+├── requirements.txt    # Dependencies
+├── models/             # Trained AI models
+├── state/              # Persistent bot state
 ├── logs/               # Log files
-└── tests/              # Test files (boring)
+└── tests/              # Test suite
 ```
-
-## 🔧 Advanced Stuff (if you're brave)
-
-### AI Models You Can Use
-- **LightGBM**: Fast and smart (default)
-- **Random Forest**: Like a forest of decision trees
-- **Logistic Regression**: Basic but works sometimes
-
-### Risk Management Features
-- Stop-loss so you don't lose your shirt
-- Multiple take-profit levels 
-- Position sizing based on how confident the AI is
-- Cooldown periods (so you don't overtrade)
-
-### Technical Indicators
-- RSI, MACD (all that good stuff)
-- Bollinger Bands
-- Moving averages
-- Volatility stuff
-- And more math things
-
-## 📈 How to Know if You're Winning
-
-The bot logs everything:
-- How good the signals are
-- All your trades
-- AI performance
-- Real-time profit/loss
-
-## 🤝 Wanna Contribute?
-
-1. Fork this repo
-2. Make your changes
-3. Test your stuff
-4. Submit a pull request
-5. Hope I don't reject it (jk... mostly)
-
-## ⚠️ SERIOUS WARNING
-
-This is not financial advice! Crypto trading is risky as hell and you can lose all your money. Don't invest more than you can afford to lose. I'm not responsible if you blow up your account. Use at your own risk!
 
 ---
 
-**Stuck?** Check the [AGENTS.md](AGENTS.md) file for more technical stuff.
+## Advanced Configuration
+
+### Supported AI Models
+
+* **LightGBM** (default): High performance and efficiency.
+* **Random Forest**: Ensemble model for robust predictions.
+* **Logistic Regression**: Lightweight and interpretable option.
+
+### Risk Management
+
+* Dynamic stop-loss and take-profit levels.
+* Position sizing based on AI confidence scores.
+* Trade cooldowns to prevent overtrading.
+
+### Technical Indicators
+
+* RSI, MACD, Bollinger Bands, Moving Averages, and more.
+
+---
+
+## Performance Tracking
+
+Comprehensive logging includes:
+
+* Signal accuracy and performance metrics.
+* Trade history and profitability reports.
+* Real-time profit/loss monitoring.
+
+---
+
+## Contributing
+
+1. Fork the repository.
+2. Implement and test your improvements.
+3. Submit a pull request for review.
+
+---
+
+## Disclaimer
+
+This software is provided for educational and research purposes only. Cryptocurrency trading carries significant financial risk. Use the bot at your own discretion and never invest more than you can afford to lose. The developers assume no responsibility for financial losses or damages incurred through the use of this tool.
